@@ -1,9 +1,41 @@
+<!DOCTYPE html>
 <html>
-<head>
-<title>Sample Page</title>
-<link rel="stylesheet" type="text/css" href="css/base.css">
-</head>
-<body>
-Hello World!
-</body>
+    <head>
+        <title>Meme Generator</title>
+        <link href="css/base.css" rel="stylesheet" type="text/css" />
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500" rel="stylesheet" />
+    </head>
+    <body>
+        <div class="container">
+            <h2>Meme Generator</h2>
+
+            <canvas id="preview"></canvas>
+
+            <form>
+                <div class="upload-and-download">
+                    <input type="file" name="picture" accept="image/*" hidden />
+                    <button class="upload">Upload Picture</button>
+                    <button class="download" disabled>Download Meme</button>
+                </div>
+                <div class="text title">
+                    <input type="text" name="title" autocomplete="off" required />
+                    <label>Title</label>
+                </div>
+                <div class="text subtitle">
+                    <input type="text" name="subtitle" required />
+                    <label>Subtitle</label>
+                </div>
+            </form>
+        </div>
+
+        <script   src="https://code.jquery.com/jquery-3.0.0.min.js"   integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="   crossorigin="anonymous"></script>
+
+        <script>
+            $('.text label').click(function() {
+                var parent = $(this).parent();
+                var input = parent.find('input');
+                $(input).focus();
+            });
+        </script>
+    </body>
 </html>
