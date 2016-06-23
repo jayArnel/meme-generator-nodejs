@@ -4,4 +4,9 @@ $(document).ready(function() {
         var input = parent.find('input');
         $(input).focus();
     });
+
+    $('#download').on('click', function() {
+        this.href = document.getElementById('preview').toDataURL();
+        this.download = 'meme.png';
+    });
 });
