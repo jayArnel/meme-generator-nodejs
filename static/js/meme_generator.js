@@ -26,22 +26,26 @@ $(document).ready(function() {
         reader.onload = function(event){
             memeImg = new Image();
             memeImg.onload = function(){
-                var ct = document.getElementById('measure');
-                ct.appendChild(memeImg);
-                var wrh = memeImg.width / memeImg.height;
-                var newWidth = canvas.width;
-                var newHeight = newWidth / wrh;
-                if (newHeight > canvas.height) {
-                    newHeight = canvas.height;
-                    newWidth = newHeight * wrh;
-                }
-                ct.removeChild(memeImg);
-                ctx.drawImage(memeImg,0,0, newWidth , newHeight);
+                drawMemeImage();
             }
             memeImg.src = event.target.result;
         }
         reader.readAsDataURL(e.target.files[0]);
     });
+
+    function drawMemeImage() {
+        var ct = document.getElementById('measure');
+        ct.appendChild(memeImg);
+        var wrh = memeImg.width / memeImg.height;
+        var newWidth = canvas.width;
+        var newHeight = newWidth / wrh;
+        if (newHeight > canvas.height) {
+            newHeight = canvas.height;
+            newWidth = newHeight * wrh;
+        }
+        ct.removeChild(memeImg);
+        ctx.drawImage(memeImg,0,0, newWidth , newHeight);
+    }
 
     // updating text
     $('.title input[type="text"]').on('keyup', function() {
@@ -49,6 +53,7 @@ $(document).ready(function() {
         var canvas = $('#preview')[0];
         var ctx = canvas.getContext('2d');
         ctx.clearRect(0,0, canvas.width, canvas.height);
+        drawMemeImage();
 
         var canvasTopMiddle = canvas.width / 2;
         ctx.font = '50px Impact'
