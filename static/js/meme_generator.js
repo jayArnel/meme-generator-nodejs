@@ -154,7 +154,6 @@ $(document).ready(function() {
         var blank = document.createElement('canvas');
         blank.width = cnvs.width;
         blank.height = cnvs.height;
-
         return cnvs.toDataURL() == blank.toDataURL();
     }
 
@@ -164,6 +163,8 @@ $(document).ready(function() {
         $('.title input[type="text"]').val('');
         $('.subtitle input[type="text"]').val('');
         $('#download').attr('hidden', true);
+        title = "";
+        subtitle = "";
     });
     function drawMeme() {
         drawMemeImage();
