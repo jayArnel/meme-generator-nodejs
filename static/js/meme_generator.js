@@ -34,17 +34,19 @@ $(document).ready(function() {
     });
 
     function drawMemeImage() {
-        var ct = document.getElementById('measure');
-        ct.appendChild(memeImg);
-        var wrh = memeImg.width / memeImg.height;
-        var newWidth = canvas.width;
-        var newHeight = newWidth / wrh;
-        if (newHeight > canvas.height) {
-            newHeight = canvas.height;
-            newWidth = newHeight * wrh;
+        if (memeImg) {
+            var ct = document.getElementById('measure');
+            ct.appendChild(memeImg);
+            var wrh = memeImg.width / memeImg.height;
+            var newWidth = canvas.width;
+            var newHeight = newWidth / wrh;
+            if (newHeight > canvas.height) {
+                newHeight = canvas.height;
+                newWidth = newHeight * wrh;
+            }
+            ct.removeChild(memeImg);
+            ctx.drawImage(memeImg,0,0, newWidth , newHeight);
         }
-        ct.removeChild(memeImg);
-        ctx.drawImage(memeImg,0,0, newWidth , newHeight);
     }
 
     // updating text
