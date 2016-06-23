@@ -1,9 +1,11 @@
 body {
     background-color: #F5F5F5;
+    position: relative;
     display: flex;
     justify-content: center;
     align-items: flex-start;
     height: 100vh;
+    overflow: hidden;
 }
 
 body,
@@ -91,4 +93,21 @@ button[disabled] {
 .text input[type="text"]:focus + label,
 .text input[type="text"]:valid + label {
     transform: translate(-12%, -120%) scale(0.75);
+}
+
+.annoyance {
+    position: absolute;
+}
+
+.awesome-face {
+    bottom: -10%;
+    left: 0;
+    animation: annoy-user 30s infinite linear;
+}
+
+@keyframes annoy-user {
+    0% {opacity: 0;}
+    98% {opacity: 0;}
+    99% {opacity: 1;}
+    100% {opacity: 0;}
 }
