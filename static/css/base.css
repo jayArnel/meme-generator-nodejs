@@ -111,3 +111,5 @@ button[disabled] {
     99% {opacity: 1;}
     100% {opacity: 0;}
 }
+
+#measure { position: absolute; left: -10000px; top: -100000px;}
