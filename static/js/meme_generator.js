@@ -77,47 +77,55 @@ $(document).ready(function() {
     });
 
     function drawTitle(context, text, x, y, maxWidth, lineHeight) {
-        var words = text.split(' ');
-        var line = '';
+        try {
+            var words = text.split(' ');
+            var line = '';
 
-        for(var n = 0; n < words.length; n++) {
-            var testLine = line + words[n] + ' ';
-            var metrics = context.measureText(testLine);
-            var testWidth = metrics.width;
-            if (testWidth > maxWidth && n > 0) {
-                context.fillText(line, x, y);
-                context.strokeText(line, x, y);
-                line = words[n] + ' ';
-                y += lineHeight;
-            } else {
-                line = testLine;
+            for(var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + ' ';
+                var metrics = context.measureText(testLine);
+                var testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    context.fillText(line, x, y);
+                    context.strokeText(line, x, y);
+                    line = words[n] + ' ';
+                    y += lineHeight;
+                } else {
+                    line = testLine;
+                }
             }
-        }
 
-        context.fillText(line, x, y);
-        context.strokeText(line, x, y);
+            context.fillText(line, x, y);
+            context.strokeText(line, x, y);
+        } catch(err) {
+            return null;
+        }
     }
 
     function drawSubtitle(context, text, x, y, maxWidth, lineHeight) {
-        var words = text.split(' ');
-        var line = '';
-        var topLineY = y - lineHeight;
+        try {
+            var words = text.split(' ');
+            var line = '';
+            var topLineY = y - lineHeight;
 
-        for(var n = 0; n < words.length; n++) {
-            var testLine = line + words[n] + ' ';
-            var metrics = context.measureText(testLine);
-            var testWidth = metrics.width;
-            if (testWidth > maxWidth && n > 0) {
-                context.fillText(line, x, topLineY);
-                context.strokeText(line, x, topLineY);
-                line = words[n] + ' ';
-                topLineY -= lineHeight;
-            } else {
-                line = testLine;
+            for(var n = 0; n < words.length; n++) {
+                var testLine = line + words[n] + ' ';
+                var metrics = context.measureText(testLine);
+                var testWidth = metrics.width;
+                if (testWidth > maxWidth && n > 0) {
+                    context.fillText(line, x, topLineY);
+                    context.strokeText(line, x, topLineY);
+                    line = words[n] + ' ';
+                    topLineY -= lineHeight;
+                } else {
+                    line = testLine;
+                }
             }
-        }
 
-        context.fillText(line, x, y);
-        context.strokeText(line, x, y);
+            context.fillText(line, x, y);
+            context.strokeText(line, x, y);
+        } catch(err) {
+            return null;
+        }
     }
 });
