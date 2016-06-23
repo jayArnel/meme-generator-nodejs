@@ -4,8 +4,8 @@ $(document).ready(function() {
     canvas.height = 700;
     var ctx;
     var memeImg;
-    var title;
-    var subtitle;
+    var title = "";
+    var subtitle = "";
 
     function initContext() {
         ctx = canvas.getContext('2d');
@@ -16,6 +16,7 @@ $(document).ready(function() {
     }
 
     initContext();
+    drawMeme();
 
     $('.text label').click(function() {
         var parent = $(this).parent();
@@ -24,8 +25,8 @@ $(document).ready(function() {
     });
 
     $('#download').on('click', function() {
-        this.href = document.getElementById('preview').toDataURL();
-        this.download = 'meme.png';
+        this.href = document.getElementById('preview').toDataURL('image/jpeg');
+        this.download = 'meme.jpeg';
     });
 
     $('.upload').on('click', function(e) {
@@ -38,31 +39,18 @@ $(document).ready(function() {
         reader.onload = function(event){
             memeImg = new Image();
             memeImg.onload = function(){
-                drawMemeImage();
-
                 if (!isCanvasBlank(canvas) || !(title.length == 0 && subtitle.length == 0)  ) {
                     $('#download').removeAttr('hidden');
                     console.log(title.length, subtitle.length);
                 } else {
                     $('#download').attr('hidden', true);
                 }
-
-                drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
-                drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
+                drawMeme();
             }
             memeImg.src = event.target.result;
         }
         reader.readAsDataURL(e.target.files[0]);
     });
-
-    function drawMemeImage() {
-        if (memeImg) {
-            canvas.height = memeImg.height;
-            canvas.width = memeImg.width;
-            initContext();
-            ctx.drawImage(memeImg,0,0);
-        }
-    }
 
     // updating text
     $('.title input[type="text"]').on('keyup', function() {
@@ -76,10 +64,7 @@ $(document).ready(function() {
         }
 
         ctx.clearRect(0,0, canvas.width, canvas.height);
-        drawMemeImage();
-
-        drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
-        drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
+        drawMeme();
     });
 
     $('.subtitle input[type="text"]').on('keyup', function() {
@@ -94,11 +79,23 @@ $(document).ready(function() {
         }
 
         ctx.clearRect(0,0, canvas.width, canvas.height);
-        drawMemeImage();
-
-        drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
-        drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
+        drawMeme();
     });
+
+
+    function drawMemeImage() {
+        ctx.fillStyle = "white";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        if (memeImg) {
+            canvas.height = memeImg.height;
+            canvas.width = memeImg.width;
+            initContext();    
+            ctx.fillStyle = "white";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(memeImg,0,0);
+        }
+    }
+
 
     function drawTitle(context, text, x, y, maxWidth, lineHeight) {
         try {
@@ -168,4 +165,9 @@ $(document).ready(function() {
         $('.subtitle input[type="text"]').val('');
         $('#download').attr('hidden', true);
     });
+    function drawMeme() {
+        drawMemeImage();
+        drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
+        drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
+    }
 });
