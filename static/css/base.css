@@ -1,3 +1,10 @@
+@font-face {
+    font-family: 'Impact';
+    src: url('../fonts/ufonts.com_impact.eot');
+    src: url('../fonts/ufonts.com_impact.ttf') format('truetype');
+}
+
+
 body {
     background-color: #F5F5F5;
     position: relative;
@@ -22,8 +29,6 @@ h2 {
 
 #preview {
     background-color: #EEE;
-    min-width: 1000px;
-    min-height: 700px;
 }
 
 form {
@@ -102,7 +107,7 @@ button[disabled] {
 .awesome-face {
     bottom: -10%;
     left: 0;
-    animation: annoy-user 30s infinite linear;
+    animation: annoy-user 10s infinite linear;
 }
 
 @keyframes annoy-user {

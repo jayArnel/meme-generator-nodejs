@@ -1,6 +1,8 @@
 $(document).ready(function() {
     var canvas = document.getElementById('preview');
     var ctx = canvas.getContext('2d');
+    canvas.width = 1000
+    canvas.height = 700
     var memeImg;
 
     $('.text label').click(function() {
@@ -40,4 +42,42 @@ $(document).ready(function() {
         }
         reader.readAsDataURL(e.target.files[0]);
     });
+
+    // updating text
+    $('.title input[type="text"]').on('keyup', function() {
+        var input = $(this).val();
+        var canvas = $('#preview')[0];
+        var ctx = canvas.getContext('2d');
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+
+        var canvasTopMiddle = canvas.width / 2;
+        ctx.font = '50px Impact'
+        ctx.fillStyle = '#FFF'
+        ctx.strokeStyle = '#000'
+        ctx.textAlign="center";
+
+        wrapText(ctx, input, canvasTopMiddle, 65, canvas.width, 45);
+    });
 });
+
+function wrapText(context, text, x, y, maxWidth, lineHeight) {
+    var words = text.split(' ');
+    var line = '';
+
+    for(var n = 0; n < words.length; n++) {
+        var testLine = line + words[n] + ' ';
+        var metrics = context.measureText(testLine);
+        var testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+            context.fillText(line, x, y);
+            context.strokeText(line, x, y);
+            line = words[n] + ' ';
+            y += lineHeight;
+        } else {
+            line = testLine;
+        }
+    }
+
+    context.fillText(line, x, y);
+    context.strokeText(line, x, y);
+}
