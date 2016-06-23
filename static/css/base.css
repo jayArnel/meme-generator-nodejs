@@ -92,3 +92,5 @@ button[disabled] {
 .text input[type="text"]:valid + label {
     transform: translate(-12%, -120%) scale(0.75);
 }
+
+#measure { position: absolute; left: -10000px; top: -100000px;}
