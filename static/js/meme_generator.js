@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var canvas = document.getElementById('preview');
-    canvas.width = 1000
-    canvas.height = 700
+    canvas.width = 1000;
+    canvas.height = 700;
     var ctx;
     var memeImg;
     var title;
@@ -39,6 +39,14 @@ $(document).ready(function() {
             memeImg = new Image();
             memeImg.onload = function(){
                 drawMemeImage();
+
+                if (!isCanvasBlank(canvas) || !(title.length == 0 && subtitle.length == 0)  ) {
+                    $('#download').removeAttr('hidden');
+                    console.log(title.length, subtitle.length);
+                } else {
+                    $('#download').attr('hidden', true);
+                }
+
                 drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
                 drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
             }
@@ -60,6 +68,13 @@ $(document).ready(function() {
     $('.title input[type="text"]').on('keyup', function() {
         title = $(this).val();
         subtitle = $('.subtitle input[type="text"]').val();
+
+        if (!isCanvasBlank(canvas) || !(title.length == 0 && subtitle.length == 0)  ) {
+            $('#download').removeAttr('hidden');
+        } else {
+            $('#download').attr('hidden', true);
+        }
+
         ctx.clearRect(0,0, canvas.width, canvas.height);
         drawMemeImage();
 
@@ -70,6 +85,14 @@ $(document).ready(function() {
     $('.subtitle input[type="text"]').on('keyup', function() {
         subtitle = $(this).val();
         title = $('.title input[type="text"]').val();
+
+        if (!isCanvasBlank(canvas) || !(title.length == 0 && subtitle.length == 0)  ) {
+            $('#download').removeAttr('hidden');
+            console.log(title.length, subtitle.length);
+        } else {
+            $('#download').attr('hidden', true);
+        }
+
         ctx.clearRect(0,0, canvas.width, canvas.height);
         drawMemeImage();
 
@@ -128,5 +151,13 @@ $(document).ready(function() {
         } catch(err) {
             return null;
         }
+    }
+
+    function isCanvasBlank(cnvs) {
+        var blank = document.createElement('canvas');
+        blank.width = cnvs.width;
+        blank.height = cnvs.height;
+
+        return cnvs.toDataURL() == blank.toDataURL();
     }
 });
