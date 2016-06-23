@@ -78,7 +78,6 @@ $(document).ready(function() {
     });
 
     function drawTitle(context, text, x, y, maxWidth, lineHeight) {
-        console.log(canvas.height, canvas.width, maxWidth);
         try {
             var words = text.split(' ');
             var line = '';
