@@ -3,9 +3,15 @@ var app = express();
 
 app.use(express.static('static'));
 
-app.get('/index.html', function (req, res) {
-   res.sendFile( __dirname + "/" + "index.html" );
-})
+var pages = {
+   '/': '/index.html',
+}
+
+for (page in pages) {
+   app.get(page, function (req, res) {
+      res.sendFile( __dirname + pages[page] );
+   });
+}
 
 
 var server = app.listen(8081, function () {
