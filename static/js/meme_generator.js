@@ -33,6 +33,8 @@ $(document).ready(function() {
             memeImg = new Image();
             memeImg.onload = function(){
                 drawMemeImage();
+                drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
+                drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
             }
             memeImg.src = event.target.result;
         }
@@ -60,7 +62,7 @@ $(document).ready(function() {
         title = $(this).val();
         subtitle = $('.subtitle input[type="text"]').val();
         ctx.clearRect(0,0, canvas.width, canvas.height);
-        // drawMemeImage();
+        drawMemeImage();
 
         drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
         drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
@@ -70,7 +72,7 @@ $(document).ready(function() {
         subtitle = $(this).val();
         title = $('.title input[type="text"]').val();
         ctx.clearRect(0,0, canvas.width, canvas.height);
-        // drawMemeImage();
+        drawMemeImage();
 
         drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
         drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
