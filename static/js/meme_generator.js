@@ -1,15 +1,21 @@
 $(document).ready(function() {
     var canvas = document.getElementById('preview');
-    var ctx = canvas.getContext('2d');
     canvas.width = 1000
     canvas.height = 700
+    var ctx;
     var memeImg;
     var title;
     var subtitle;
-    ctx.font = '50px Impact'
-    ctx.fillStyle = '#FFF'
-    ctx.strokeStyle = '#000'
-    ctx.textAlign="center";
+
+    function initContext() {
+        ctx = canvas.getContext('2d');
+        ctx.font = '50px Impact'
+        ctx.fillStyle = '#FFF'
+        ctx.strokeStyle = '#000'
+        ctx.textAlign="center";
+    }
+
+    initContext();
 
     $('.text label').click(function() {
         var parent = $(this).parent();
@@ -43,17 +49,10 @@ $(document).ready(function() {
 
     function drawMemeImage() {
         if (memeImg) {
-            var ct = document.getElementById('measure');
-            ct.appendChild(memeImg);
-            var wrh = memeImg.width / memeImg.height;
-            var newWidth = canvas.width;
-            var newHeight = newWidth / wrh;
-            if (newHeight > canvas.height) {
-                newHeight = canvas.height;
-                newWidth = newHeight * wrh;
-            }
-            ct.removeChild(memeImg);
-            ctx.drawImage(memeImg,0,0, newWidth , newHeight);
+            canvas.height = memeImg.height;
+            canvas.width = memeImg.width;
+            initContext();
+            ctx.drawImage(memeImg,0,0);
         }
     }
 
@@ -79,6 +78,7 @@ $(document).ready(function() {
     });
 
     function drawTitle(context, text, x, y, maxWidth, lineHeight) {
+        console.log(canvas.height, canvas.width, maxWidth);
         try {
             var words = text.split(' ');
             var line = '';
