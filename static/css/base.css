@@ -11,7 +11,6 @@ body {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    height: 100vh;
 }
 
 body,
@@ -37,16 +36,18 @@ form {
 .upload,
 .download {
     background-color: #2196F3;
+    display: inline-block;
     padding: 7px;
+    text-decoration: none;
     font-size: 14px;
     color: #FFF;
     border: 0;
     border-radius: 3px;
+    cursor: pointer;
 }
 
-button[disabled] {
-    opacity: 0.75;
-    cursor: not-allowed;
+.download[hidden] {
+    display: none;
 }
 
 .download {
@@ -100,7 +101,7 @@ button[disabled] {
 }
 
 .annoyance {
-    position: absolute;
+    position: fixed;
 }
 
 .awesome-face {
