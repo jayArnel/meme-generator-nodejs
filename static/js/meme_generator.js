@@ -4,6 +4,12 @@ $(document).ready(function() {
     canvas.width = 1000
     canvas.height = 700
     var memeImg;
+    var title;
+    var subtitle;
+    ctx.font = '50px Impact'
+    ctx.fillStyle = '#FFF'
+    ctx.strokeStyle = '#000'
+    ctx.textAlign="center";
 
     $('.text label').click(function() {
         var parent = $(this).parent();
@@ -51,40 +57,67 @@ $(document).ready(function() {
 
     // updating text
     $('.title input[type="text"]').on('keyup', function() {
-        var input = $(this).val();
-        var canvas = $('#preview')[0];
-        var ctx = canvas.getContext('2d');
+        title = $(this).val();
+        subtitle = $('.subtitle input[type="text"]').val();
         ctx.clearRect(0,0, canvas.width, canvas.height);
-        drawMemeImage();
+        // drawMemeImage();
 
-        var canvasTopMiddle = canvas.width / 2;
-        ctx.font = '50px Impact'
-        ctx.fillStyle = '#FFF'
-        ctx.strokeStyle = '#000'
-        ctx.textAlign="center";
-
-        wrapText(ctx, input, canvasTopMiddle, 65, canvas.width, 45);
+        drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
+        drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
     });
-});
 
-function wrapText(context, text, x, y, maxWidth, lineHeight) {
-    var words = text.split(' ');
-    var line = '';
+    $('.subtitle input[type="text"]').on('keyup', function() {
+        subtitle = $(this).val();
+        title = $('.title input[type="text"]').val();
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        // drawMemeImage();
 
-    for(var n = 0; n < words.length; n++) {
-        var testLine = line + words[n] + ' ';
-        var metrics = context.measureText(testLine);
-        var testWidth = metrics.width;
-        if (testWidth > maxWidth && n > 0) {
-            context.fillText(line, x, y);
-            context.strokeText(line, x, y);
-            line = words[n] + ' ';
-            y += lineHeight;
-        } else {
-            line = testLine;
+        drawTitle(ctx, title, (canvas.width / 2), 65, canvas.width, 45);
+        drawSubtitle(ctx, subtitle, (canvas.width / 2), (canvas.height - 35), canvas.width, 45);
+    });
+
+    function drawTitle(context, text, x, y, maxWidth, lineHeight) {
+        var words = text.split(' ');
+        var line = '';
+
+        for(var n = 0; n < words.length; n++) {
+            var testLine = line + words[n] + ' ';
+            var metrics = context.measureText(testLine);
+            var testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                context.fillText(line, x, y);
+                context.strokeText(line, x, y);
+                line = words[n] + ' ';
+                y += lineHeight;
+            } else {
+                line = testLine;
+            }
         }
+
+        context.fillText(line, x, y);
+        context.strokeText(line, x, y);
     }
 
-    context.fillText(line, x, y);
-    context.strokeText(line, x, y);
-}
+    function drawSubtitle(context, text, x, y, maxWidth, lineHeight) {
+        var words = text.split(' ');
+        var line = '';
+        var topLineY = y - lineHeight;
+
+        for(var n = 0; n < words.length; n++) {
+            var testLine = line + words[n] + ' ';
+            var metrics = context.measureText(testLine);
+            var testWidth = metrics.width;
+            if (testWidth > maxWidth && n > 0) {
+                context.fillText(line, x, topLineY);
+                context.strokeText(line, x, topLineY);
+                line = words[n] + ' ';
+                topLineY -= lineHeight;
+            } else {
+                line = testLine;
+            }
+        }
+
+        context.fillText(line, x, y);
+        context.strokeText(line, x, y);
+    }
+});
