@@ -160,4 +160,12 @@ $(document).ready(function() {
 
         return cnvs.toDataURL() == blank.toDataURL();
     }
+
+    $('#clear').on('click', function(e) {
+        e.preventDefault();
+        ctx.clearRect(0,0, canvas.width, canvas.height);
+        $('.title input[type="text"]').val('');
+        $('.subtitle input[type="text"]').val('');
+        $('#download').attr('hidden', true);
+    });
 });
